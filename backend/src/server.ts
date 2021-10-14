@@ -11,7 +11,7 @@ const createUsers = () => {
   });
 };
 
-createUsers();
+//createUsers();
 
 db.sequelize.sync().then(() => {
   app.listen(port, () => {
