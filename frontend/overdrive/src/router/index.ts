@@ -16,10 +16,16 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
+  {
+    path: "/:catchAll(.*)",
+    name: "NotFound",
+    component: () =>
+      import(/* webpackChunkName: "notFound" */ "../views/NotFound.vue"),
+  },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes,
 });
 

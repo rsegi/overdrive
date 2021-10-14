@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1>{{ message }}</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br />
       check out the
@@ -103,15 +103,33 @@
 </template>
 
 <script lang="ts">
-export default {
+import testService from "@/services/testServices/testService";
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "HelloWorld",
-  props: {
-    msg: String,
+  data() {
+    return {
+      message: "",
+    };
   },
-  setup() {
-    return {};
+  methods: {
+    retrieveMessage() {
+      testService
+        .getMessage()
+        .then((response) => {
+          this.message = response.data;
+          console.log(response.data);
+        })
+        .catch((error: Error) => {
+          console.log(error);
+        });
+    },
   },
-};
+  mounted() {
+    this.retrieveMessage();
+  },
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
