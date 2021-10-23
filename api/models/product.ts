@@ -8,6 +8,7 @@ interface ProductAttributes {
   category: number;
   price: number;
   image: string;
+  description: string;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -23,6 +24,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     category!: number;
     price!: number;
     image!: string;
+    description!: string;
     static associate(models: any) {
       // define association here
       Product.belongsToMany(models.Order, {
@@ -55,6 +57,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: false,
       },
       image: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      description: {
         type: DataTypes.STRING,
         allowNull: false,
       },
