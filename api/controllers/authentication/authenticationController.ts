@@ -6,7 +6,7 @@ import * as bcrypt from "bcrypt";
 import LogInDto from "./logInDto";
 import AuthenticationService from "../../services/authenticationService";
 
-const { User } = require("../models");
+const { User } = require("../../models");
 
 class AuthenticationController implements Controller {
   public path = "/auth";

@@ -1,3 +1,5 @@
+import { Secret } from "jsonwebtoken";
+
 require("dotenv").config();
 
 export interface IProcessEnv {
@@ -5,7 +7,7 @@ export interface IProcessEnv {
   DB_NAME: string;
   DB_PASS: string;
   DB_HOST: string;
-  JWT_SECRET: string;
+  JWT_SECRET: Secret;
 }
 
 declare global {
