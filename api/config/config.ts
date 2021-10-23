@@ -1,5 +1,19 @@
 require("dotenv").config();
 
+export interface IProcessEnv {
+  DB_USER: string;
+  DB_NAME: string;
+  DB_PASS: string;
+  DB_HOST: string;
+  JWT_SECRET: string;
+}
+
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv extends IProcessEnv {}
+  }
+}
+
 module.exports = {
   development: {
     username: process.env.DB_USER,
