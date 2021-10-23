@@ -5,7 +5,6 @@ import HttpException from "../../exceptions/httpException";
 import * as bcrypt from "bcrypt";
 import LogInDto from "./logInDto";
 import AuthenticationService from "../../services/authenticationService";
-import authMiddleware from "../../middleware/authenticationMiddleware";
 
 const { User } = require("../models");
 
