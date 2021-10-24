@@ -5,14 +5,13 @@ import HttpException from "../../exceptions/httpException";
 import * as bcrypt from "bcrypt";
 import LogInDto from "./logInDto";
 import AuthenticationService from "../../services/authenticationService";
-
-const { User } = require("../../models");
+import db from "../../models";
 
 class AuthenticationController implements Controller {
   public path = "/auth";
   public router = express.Router();
   public authenticationService = new AuthenticationService();
-  private user = User;
+  private user = db.User;
 
   constructor() {
     this.initializeRoutes();
@@ -31,7 +30,7 @@ class AuthenticationController implements Controller {
   ) => {
     const userData: UserAttributes = req.body;
     let existingUser: UserAttributes = await this.user.findOne({
-      where: { id: userData.email },
+      where: { email: userData.email },
     });
 
     if (existingUser) {

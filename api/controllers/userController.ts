@@ -1,13 +1,12 @@
 import * as express from "express";
 import authMiddleware from "../middleware/authenticationMiddleware";
-import { UserAttributes } from "../models/user";
 import Controller from "./controller";
-
-const { User } = require("../models");
+import db from "../models";
 
 class UsersController implements Controller {
   public path = "/users";
   public router = express.Router();
+  public user = db.User;
 
   constructor() {
     this.initializeRoutes();
@@ -20,7 +19,7 @@ class UsersController implements Controller {
   removeOne = async (req: express.Request, res: express.Response) => {
     try {
       const { userId } = req.params;
-      await User.destroy({
+      await this.user.destroy({
         where: { id: userId },
       });
       res.status(200);
