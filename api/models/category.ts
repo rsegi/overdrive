@@ -1,17 +1,18 @@
 "use strict";
+
 import { Model, UUIDV4 } from "sequelize";
 
-interface ProductAttributes {
+export interface CategoryAttributes {
   id: string;
   name: string;
-  amount: number;
-  price: number;
   image: string;
-  description: string;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  class Product extends Model<ProductAttributes> implements ProductAttributes {
+  class Category
+    extends Model<CategoryAttributes>
+    implements CategoryAttributes
+  {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -19,19 +20,13 @@ module.exports = (sequelize: any, DataTypes: any) => {
      */
     id!: string;
     name!: string;
-    amount!: number;
-    price!: number;
     image!: string;
-    description!: string;
     static associate(models: any) {
       // define association here
-      Product.belongsToMany(models.Order, {
-        through: "OrderProducts",
-      });
-      Product.belongsTo(models.Category);
+      Category.hasMany(models.Product, { foreignKey: "CategoryId" });
     }
   }
-  Product.init(
+  Category.init(
     {
       id: {
         type: DataTypes.UUID,
@@ -43,27 +38,15 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      amount: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      price: {
-        type: DataTypes.DECIMAL,
-        allowNull: false,
-      },
       image: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      description: {
         type: DataTypes.STRING,
         allowNull: false,
       },
     },
     {
       sequelize,
-      modelName: "Product",
+      modelName: "Category",
     }
   );
-  return Product;
+  return Category;
 };

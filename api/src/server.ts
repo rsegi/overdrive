@@ -1,10 +1,10 @@
 import cookieParser from "cookie-parser";
 import express, { Request, Response } from "express";
 import AuthenticationController from "../controllers/authentication/authenticationController";
+import CategoriesController from "../controllers/categoriesController";
 import UsersController from "../controllers/userController";
 import errorMiddleware from "../middleware/errorMiddleware";
 import db from "../models";
-import { users } from "../seeders/users";
 
 const history = require("connect-history-api-fallback");
 
@@ -14,18 +14,11 @@ app.use(cookieParser());
 
 app.use("/", new AuthenticationController().router);
 app.use("/", new UsersController().router);
+app.use("/", new CategoriesController().router);
 //app.use(history());
 //app.use(express.static("src"));
 
 const port = process.env.PORT || 9000;
-
-const createUsers = () => {
-  users.map((user) => {
-    db.User.create(user);
-  });
-};
-
-//createUsers();
 
 app.get("/", (req: Request, res: Response) => {
   res.header("Access-Control-Allow-Origin", "*");
