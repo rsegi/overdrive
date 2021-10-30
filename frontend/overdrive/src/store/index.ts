@@ -1,7 +1,7 @@
-import { createStore } from 'vuex';
+import { createStore, Store } from 'vuex';
 import { Product } from "@/models/product";
 
-export interface State {
+interface State {
   cart: {
     items: Product[]
   },
@@ -43,3 +43,10 @@ export default createStore<State>({
   modules: {
   }
 })
+
+
+declare module "@vue/runtime-core" {
+  interface ComponentCustomProperties {
+    $store: Store<State>;
+  }
+}
