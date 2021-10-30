@@ -69,15 +69,32 @@
     </footer>
   </div>
 </template>
-
+ 
 <script lang="ts">
-export default ({
-  data():Record<string, boolean> {
+
+import { Product } from "@/models/product";
+import { defineComponent } from 'vue';
+
+interface Data {
+  showMobileMenu: boolean,
+  cart: {
+    items: Product[]
+  }
+}
+
+export default defineComponent ({
+  data():Data {
     return {
       showMobileMenu: false,
+      cart: {
+        items: []
+      }
           };
   },
-})
+  beforeCreate(): void {
+    this.$store.commit('initializeStore');
+  }
+});
 </script>
 
 

@@ -28,18 +28,28 @@
 
             <router-link v-bind:to="product.get_absolute_url" class="button is-dark mt-4">View details</router-link>
         </div>
+      </div>
     </div>
+  </div>
+
 </template>
 
 <script lang="ts">
 import productService from '@/services/productService';
 import { Product } from "@/models/product";
+import { defineComponent } from 'vue';
 
-export default {
+
+interface Data {
+ products: Product[]
+}
+
+export default defineComponent({
   name: 'Home',
-  data(): Product[] {
-    return [] // TODO: return products
-    
+  data(): Data {
+    return {
+      products: []
+      }
   },
   components: {
   },
@@ -56,5 +66,5 @@ export default {
       })
     }
   }
-  }
+  })
 </script>

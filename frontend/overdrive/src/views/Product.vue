@@ -33,12 +33,19 @@
 
 <script lang="ts">
 import productService from "@/services/productService";
+import { Product } from '@/models/product';
+import { defineComponent } from "vue";
 
-export default {
+interface Data {
+   product: Product | null,
+   quantity: number,
+}
+
+export default defineComponent({
   name: 'Product',
-  data():Record<string,number> {
+  data():Data { 
     return{
-      product: {},
+      product: null,
       quantity: 1
     }
   },
@@ -46,9 +53,9 @@ export default {
     this.getProduct()
   },
   methods: {
-    getProduct():void {
-      const category = this.$route.params.category
-      const productId = this.$route.params.product
+    getProduct(): void {
+      const category = this.$route.params.category as string;
+      const productId = this.$route.params.product as string;
       productService.getProduct(category, productId)
       .then((response) => {
           this.product = response.data;
@@ -56,5 +63,5 @@ export default {
       .catch((error: Error) => console.log(error));
     }
   },
-}
+});
 </script>
