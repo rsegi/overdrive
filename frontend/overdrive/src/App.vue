@@ -72,13 +72,13 @@
  
 <script lang="ts">
 
-import { Product } from "@/models/product";
 import { defineComponent } from 'vue';
+import { CartItem } from "./models/cartItem";
 
 interface Data {
   showMobileMenu: boolean,
   cart: {
-    items: Product[]
+    items: CartItem[]
   }
 }
 
@@ -89,10 +89,13 @@ export default defineComponent ({
       cart: {
         items: []
       }
-          };
+    };
   },
   beforeCreate(): void {
     this.$store.commit('initializeStore');
+  },
+  mounted() {
+    this.cart = this.$store.state.cart;
   },
   computed: {
     cartTotalLength(): number {
@@ -101,7 +104,7 @@ export default defineComponent ({
       for (let i= 0; i < this.cart.items.length; i++) {
         totalLength += this.cart.items[i].quantity;
       }
-      
+
       return totalLength;
     }
   }

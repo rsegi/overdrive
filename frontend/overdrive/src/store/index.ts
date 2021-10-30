@@ -1,9 +1,9 @@
 import { createStore, Store } from 'vuex';
-import { Product } from "@/models/product";
+import { CartItem } from '@/models/cartItem';
 
 interface State {
   cart: {
-    items: Product[]
+    items: CartItem[]
   },
   isAuthenticated: boolean,
   token: string,
@@ -30,11 +30,11 @@ export default createStore<State>({
       }
     },
     addToCart(state, item){
-      const existingItems = state.cart.items.filter(i => i.id === item.product.id)
+      const existingItems = state.cart.items.filter(i => i.product.id === item.product.id);
       if (existingItems.length) {
-        existingItems[0].quantity = existingItems[0].quantity + parseInt(item.quantity)
+        existingItems[0].quantity = existingItems[0].quantity + parseInt(item.quantity);
       } else {
-        state.cart.items.push(item)
+        state.cart.items.push(item);
       }
     }
   },
