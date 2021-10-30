@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import productService from '@/services/productService';
-import {Product} from 'src/models/product';
+import { Product } from "@/models/product";
 
 export default {
   name: 'Home',

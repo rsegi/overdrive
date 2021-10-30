@@ -1,7 +1,7 @@
 export interface Product {
     id: string;
     name: string;
-    amount: number;
+    quantity: number; //TODO: it is called 'amount' in the backend
     price: number;
     image: string;
     description: string;
