@@ -32,14 +32,13 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios'
 import productService from "@/services/productService";
 
 export default {
   name: 'Product',
-  data() :Record<string,number> {
+  data():Record<string,number> {
     return{
-      product: 1,
+      product: {},
       quantity: 1
     }
   },
@@ -47,13 +46,14 @@ export default {
     this.getProduct()
   },
   methods: {
-    
-    getProducts() {
+    getProduct():void {
       const category = this.$route.params.category
-      const product = this.$route.params.product
-      productService.getProducts().then((response) => {
-          this.products = response.data;
-        });
+      const productId = this.$route.params.product
+      productService.getProduct(category, productId)
+      .then((response) => {
+          this.product = response.data;
+        })
+      .catch((error: Error) => console.log(error));
     }
   },
 }
