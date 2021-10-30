@@ -61,6 +61,8 @@ export default defineComponent({
       await productService.getProduct(category, productId)
       .then((response) => {
           this.product = response.data;
+
+          document.title = this.product.name + ' | Overdrive';
         })
       .catch((error: Error) => console.log(error));
 

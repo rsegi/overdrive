@@ -54,7 +54,8 @@ export default defineComponent({
   components: {
   },
   mounted(): void {
-    this.getProducts()
+    this.getProducts();
+    document.title = 'Home | Overdrive';
   },
   methods: {
     getProducts(): void {
