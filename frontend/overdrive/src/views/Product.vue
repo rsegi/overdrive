@@ -53,14 +53,18 @@ export default defineComponent({
     this.getProduct()
   },
   methods: {
-    getProduct(): void {
+    async getProduct(): Promise<void> {
+      this.$store.commit('setIsLoading', true);
+
       const category = this.$route.params.category as string;
       const productId = this.$route.params.product as string;
-      productService.getProduct(category, productId)
+      await productService.getProduct(category, productId)
       .then((response) => {
           this.product = response.data;
         })
       .catch((error: Error) => console.log(error));
+
+      this.$store.commit('setIsLoading', false);
     },
     addToCart():void {
       if(isNaN(this.quantity) || this.quantity < 1) {
