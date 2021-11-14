@@ -1,5 +1,5 @@
 import createCategories from "./categorySeeder";
-import createUsers from "./userSeeder";
+import createProducts from "./productSeeder";
 
-createUsers();
-createCategories();
+//createCategories();
+createProducts();
