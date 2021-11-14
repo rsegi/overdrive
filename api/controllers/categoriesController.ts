@@ -4,7 +4,7 @@ import authMiddleware from "../middleware/authenticationMiddleware";
 import { CategoryAttributes } from "../models/category";
 import Controller from "./controller";
 import db from "../models";
-import CategoryDto from "../dtos/categoryDto";
+import CategoryDto, { getCategoryDto } from "../dtos/categoryDto";
 
 class CategoriesController implements Controller {
   public path = "/categories";
@@ -27,15 +27,16 @@ class CategoriesController implements Controller {
   ) => {
     const categoryId: string = req.params.id;
     let existingCateogry = await this.category.findOne({
+      include: [{ model: db.Product }],
       where: { id: categoryId },
     });
 
-    if (existingCateogry) {
-      const categoryDto: CategoryDto = this.getCategoryDto(existingCateogry);
-      res.send(categoryDto);
-    } else {
+    if (!existingCateogry) {
       next(new HttpException(404, `Category with id ${categoryId} not found`));
     }
+
+    const categoryDto: CategoryDto = getCategoryDto(existingCateogry);
+    res.send(categoryDto);
   };
 
   private getAll = async (
@@ -46,24 +47,13 @@ class CategoriesController implements Controller {
     let categoriesItems = await this.category.findAll();
 
     const categoriesDto: CategoryDto[] = categoriesItems.map((c: any) => {
-      console.log(c.dataValues);
-      const category: CategoryDto = this.getCategoryDto(c);
+      const category: CategoryDto = getCategoryDto(c);
 
       return category;
     });
 
     res.send(categoriesDto);
   };
-
-  private getCategoryDto(c: any) {
-    const { id, image, name } = c.dataValues;
-    const category: CategoryDto = {
-      id: id,
-      image: image,
-      name: name,
-    };
-    return category;
-  }
 }
 
 export default CategoriesController;
