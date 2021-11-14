@@ -3,8 +3,8 @@ import { Model, UUIDV4 } from "sequelize";
 
 export interface UserAttributes {
   id: string;
-  name: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   email: string;
   hashed_password: string;
 }
@@ -17,8 +17,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
      * The `models/index` file will call this method automatically.
      */
     id!: string;
-    name!: string;
-    lastname!: string;
+    firstName!: string;
+    lastName!: string;
     email!: string;
     hashed_password!: string;
     static associate(models: any) {
@@ -36,11 +36,11 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: false,
         primaryKey: true,
       },
-      name: {
+      firstName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      lastname: {
+      lastName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
