@@ -45,7 +45,7 @@ class CategoriesController implements Controller {
     next: express.NextFunction
   ) => {
     let categoriesItems = await this.category.findAll();
-
+    res.header("Access-Control-Allow-Origin", "*");
     const categoriesDto: CategoryDto[] = categoriesItems.map((c: any) => {
       const category: CategoryDto = getCategoryDto(c);
 

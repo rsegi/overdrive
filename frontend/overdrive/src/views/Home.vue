@@ -1,66 +1,54 @@
 <template>
   <div class="home">
-    <section class="hero is-medium is-dark mb-6">
+    <section class="hero is-medium">
         <div class="hero-body has-text-centered">
             <p class="title mb-6">
-                Welcome to Overdrive
+                Overdrive
             </p>
         </div>
     </section>
 
     <div class="columns is-multiline">
-      <div class="column is-12">
-          <h2 class="is-size-2 has-text-centered">Products</h2>
-      </div>
 
-      <div 
-        class="column is-3"
-        v-for="product in products"
-        v-bind:key="product.id"
-      >
-       <div class="box">
-            <figure class="image mb-4">
-                <img v-bind:src="product.image">
-            </figure>
-
-            <h3 class="is-size-4">{{ product.name }}</h3>
-            <p class="is-size-6 has-text-grey">${{ product.price }}</p>
-
-            <router-link v-bind:to="product.get_absolute_url" class="button is-dark mt-4">View details</router-link>
-        </div>
-      </div>
+    <CategoryCard 
+      v-for="category in categories"
+      v-bind:key="category.id"
+      v-bind:category="category" 
+    />
     </div>
   </div>
 
 </template>
 
 <script lang="ts">
-import productService from '@/services/productService';
-import { Product } from "@/models/product";
+import CategoryCard from '@/components/CategoryCard.vue'
 import { defineComponent } from 'vue';
+import { ICategory } from '@/models/category';
+import categoryService from '@/services/categoryService';
 
 
 interface Data {
- products: Product[]
+ categories: ICategory[]
 }
 
 export default defineComponent({
   name: 'Home',
   data(): Data {
     return {
-      products: []
+      categories: []
       }
   },
   components: {
+    CategoryCard,
   },
   mounted(): void {
-    this.getProducts();
+    this.getCategories();
     document.title = 'Home | Overdrive';
   },
   methods: {
-    getProducts(): void {
-      productService.getProducts().then(response => {
-        this.products = response.data;
+    getCategories(): void {
+      categoryService.getCategories().then(response => {
+        this.categories = response.data;
       }).catch((error: Error) => {
         console.log(error);
         

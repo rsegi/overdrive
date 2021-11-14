@@ -33,11 +33,11 @@
 
 <script lang="ts">
 import productService from "@/services/productService";
-import { Product } from '@/models/product';
+import { IProduct } from '@/models/product';
 import { defineComponent } from "vue";
 
 interface Data {
-   product: Product | null,
+   product: IProduct | null,
    quantity: number,
 }
 

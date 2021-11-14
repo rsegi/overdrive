@@ -1,7 +1,9 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import Home from '../views/Home.vue';
 
-import Product from '../views/Product.vue'
+import Product from '../views/Product.vue';
+import Category from '../views/Category.vue';
+import Cart from '../views/Cart.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -21,6 +23,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/:category/:productId',
     name: 'Product',
     component: Product
+  },
+  {
+    path: '/:categories/:categoryId',
+    name: 'Category',
+    component: Category 
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: Cart 
   },
 ]
 

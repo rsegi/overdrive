@@ -1,9 +1,9 @@
 import { createStore, Store } from 'vuex';
-import { CartItem } from '@/models/cartItem';
+import { ICartItem } from '@/models/cartItem';
 
 interface State {
   cart: {
-    items: CartItem[]
+    items: ICartItem[]
   },
   isAuthenticated: boolean,
   token: string,
