@@ -84,6 +84,9 @@ export default defineComponent({
      password2: '',
      errors: []
     }
+  }, 
+  mounted() {
+    document.title = 'Sign Up | Overdrive';
   },
   methods: {
     submitForm() {

@@ -54,6 +54,7 @@
 
 import { defineComponent } from 'vue';
 import { ICartItem } from "@/models/cartItem";
+// import axios from 'axios';
 
 interface Data {
   showMobileMenu: boolean,
@@ -73,6 +74,11 @@ export default defineComponent ({
   },
   beforeCreate(): void {
     this.$store.commit('initializeStore');
+
+    // const token = this.$store.state.token;
+
+    // axios.defaults.headers.common['Authorization'] = token ? 'Token' + token : '';
+
   },
   mounted() {
     this.cart = this.$store.state.cart;

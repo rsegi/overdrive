@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 import Home from '../views/Home.vue';
 import Register from '../views/Register.vue';
+import LogIn from '../views/LogIn.vue';
 import Product from '../views/Product.vue';
 import Category from '../views/Category.vue';
 import Cart from '../views/Cart.vue';
@@ -13,9 +14,14 @@ const routes: Array<RouteRecordRaw> = [
     component: Home
   },
   {
-    path: '/signup',
+    path: '/sign-up',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/log-in',
+    name: 'LogIn',
+    component: LogIn
   },
   {
     path: '/about',
