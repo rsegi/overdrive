@@ -6,9 +6,23 @@
 
                 <form @submit.prevent="submitForm">
                     <div class="field">
-                        <label>Username</label>
+                        <label>First name</label>
                         <div class="control">
-                            <input type="text" class="input" v-model="username">
+                            <input type="text" class="input" v-model="firstName">
+                        </div>
+                    </div>
+                    
+                    <div class="field">
+                        <label>Last name</label>
+                        <div class="control">
+                            <input type="text" class="input" v-model="lastName">
+                        </div>
+                    </div>
+                    
+                    <div class="field">
+                        <label>Email</label>
+                        <div class="control">
+                            <input type="email" class="input" v-model="email">
                         </div>
                     </div>
 
@@ -51,7 +65,9 @@ import { defineComponent } from "vue";
 import { toast } from 'bulma-toast';
 
 interface Data {
-   username: string,
+   firstName: string,
+   lastName: string,
+   email: string,
    password: string,
    password2: string,
    errors: string[]
@@ -61,7 +77,9 @@ export default defineComponent({
   name: 'Register',
   data(): Data { 
     return {
-     username: '',
+     firstName: '',
+     lastName: '',
+     email: '',
      password: '',
      password2: '',
      errors: []
@@ -70,8 +88,14 @@ export default defineComponent({
   methods: {
     submitForm() {
       this.errors = []
-      if (this.username === '') {
-          this.errors.push('The username is missing')
+      if (this.firstName === '') {
+          this.errors.push('The first name is missing')
+      }
+      if (this.lastName === '') {
+          this.errors.push('The last name is missing')
+      }
+      if (this.email === '') {
+          this.errors.push('The email is missing')
       }
       if (this.password === '') {
           this.errors.push('The password is too short')
@@ -82,8 +106,10 @@ export default defineComponent({
 
        if (!this.errors.length) {
         const formData = {
-            username: this.username,
-            password: this.password
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          password: this.password,
         }
 
         authenticationService.register(formData).then(() => {
