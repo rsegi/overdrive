@@ -1,13 +1,14 @@
 "use strict";
 import { Model, UUIDV4 } from "sequelize";
 
-interface ProductAttributes {
+export interface ProductAttributes {
   id: string;
   name: string;
   amount: number;
   price: number;
   image: string;
   description: string;
+  CategoryId: string;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -23,6 +24,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     price!: number;
     image!: string;
     description!: string;
+    CategoryId!: string;
     static associate(models: any) {
       // define association here
       Product.belongsToMany(models.Order, {
@@ -57,6 +59,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
       },
       description: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      CategoryId: {
+        type: DataTypes.UUID,
         allowNull: false,
       },
     },
