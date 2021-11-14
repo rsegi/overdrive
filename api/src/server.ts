@@ -5,10 +5,12 @@ import CategoriesController from "../controllers/categoriesController";
 import UsersController from "../controllers/userController";
 import errorMiddleware from "../middleware/errorMiddleware";
 import db from "../models";
+const cors = require("cors");
 
 const history = require("connect-history-api-fallback");
 
 const app = express();
+app.use(cors());
 app.use(errorMiddleware);
 app.use(cookieParser());
 
