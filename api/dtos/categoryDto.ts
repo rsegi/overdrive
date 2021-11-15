@@ -1,10 +1,16 @@
 import ProductDto, { getProductDto } from "./productDto";
 
-export default interface CategoryDto {
+export interface CategoryDto {
   id: string;
   name: string;
   image: string;
   products: ProductDto[];
+}
+
+export interface CategoryListDto {
+  id: string;
+  name: string;
+  image: string;
 }
 
 export const getCategoryDto = (c: any) => {
@@ -21,6 +27,17 @@ export const getCategoryDto = (c: any) => {
     image: image,
     name: name,
     products: products,
+  };
+  return category;
+};
+
+export const getCategoryListDto = (c: any) => {
+  const { id, image, name, Products } = c.dataValues;
+
+  const category: CategoryListDto = {
+    id: id,
+    image: image,
+    name: name,
   };
   return category;
 };

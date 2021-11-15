@@ -53,3 +53,5 @@ class OrdersController implements Controller {
     res.send("Delete order");
   }; */
 }
+
+export default OrdersController;
