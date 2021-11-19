@@ -29,6 +29,24 @@ class OrdersController implements Controller {
     const orderId = req.params.id;
     let existingOrder = await this.order.findOne({
       where: { id: orderId },
+      include: [
+        {
+          model: db.Product,
+          as: "products",
+          include: [
+            {
+              model: db.OrderProduct,
+              as: "orderProducts",
+              include: [
+                {
+                  model: db.Product,
+                  as: "product",
+                },
+              ],
+            },
+          ],
+        },
+      ],
     });
 
     if (!existingOrder) {

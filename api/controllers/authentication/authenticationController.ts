@@ -2,10 +2,10 @@ import Controller from "../controller";
 import * as express from "express";
 import { UserAttributes } from "../../models/user";
 import HttpException from "../../exceptions/httpException";
-import * as bcrypt from "bcrypt";
 import LogInDto from "./logInDto";
 import AuthenticationService from "../../services/authenticationService";
 import db from "../../models";
+import bcrypt from "bcrypt";
 
 class AuthenticationController implements Controller {
   public path = "/auth";
