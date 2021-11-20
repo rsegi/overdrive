@@ -32,7 +32,7 @@ export const getCategoryDto = (c: any) => {
 };
 
 export const getCategoryListDto = (c: any) => {
-  const { id, image, name, Products } = c.dataValues;
+  const { id, image, name } = c.dataValues;
 
   const category: CategoryListDto = {
     id: id,

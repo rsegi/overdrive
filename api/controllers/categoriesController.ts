@@ -51,7 +51,6 @@ class CategoriesController implements Controller {
     next: express.NextFunction
   ) => {
     let categoriesItems: CategoryAttributes[] = await this.category.findAll();
-    console.log(categoriesItems);
     const categoriesDto: CategoryListDto[] = categoriesItems.map((c: any) => {
       const category: CategoryListDto = getCategoryListDto(c);
 

@@ -6,6 +6,7 @@ import * as bcrypt from "bcrypt";
 import LogInDto, { getLoginDto } from "./logInDto";
 import AuthenticationService from "../../services/authenticationService";
 import db from "../../models";
+import { getUserDto } from "../../dtos/userDto";
 
 class AuthenticationController implements Controller {
   public path = "/auth";
@@ -38,7 +39,6 @@ class AuthenticationController implements Controller {
         new HttpException(403, "A user with that email is already registered")
       );
     } else {
-      console.log(userData.password, "USER DATAAAAAAAAA");
       const hashedPassword = await bcrypt.hash(userData.password, 10);
       const user = await this.user.create({
         ...userData,
@@ -46,10 +46,11 @@ class AuthenticationController implements Controller {
       });
       user.password = undefined;
       const tokenData = this.authenticationService.createToken(user);
-      res.setHeader("Set-Cookie", [
-        this.authenticationService.createCookie(tokenData),
-      ]);
-      res.send(user);
+      res.cookie("Authorization", tokenData.token, {
+        maxAge: tokenData.expiresIn,
+        httpOnly: true,
+      });
+      res.send(getUserDto(user));
     }
   };
 
@@ -70,10 +71,11 @@ class AuthenticationController implements Controller {
       if (isPasswordMatching) {
         userData.password = undefined;
         const tokenData = this.authenticationService.createToken(userData);
-        res.setHeader("Set-Cookie", [
-          this.authenticationService.createCookie(tokenData),
-        ]);
-        res.send(userData);
+        res.cookie("Authorization", tokenData.token, {
+          httpOnly: true,
+          maxAge: tokenData.expiresIn,
+        });
+        res.status(200).send(getUserDto(user));
       } else {
         next(new HttpException(401, "Wrong credentials provided"));
       }

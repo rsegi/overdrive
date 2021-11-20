@@ -7,13 +7,13 @@ import { DataStoredInToken } from "../services/authenticationService";
 const { User } = require("../models");
 
 async function authMiddleware(
-  request: RequestWithUser,
-  response: Response,
+  req: RequestWithUser,
+  res: Response,
   next: NextFunction
 ) {
-  const cookies = request.cookies;
+  const cookies = req.cookies;
   if (cookies && cookies.Authorization) {
-    const secret = process.env.JWT_SECRET;
+    const secret = process.env.JWT_SECRET || "my-secret";
     try {
       const verificationResponse = jwt.verify(
         cookies.Authorization,
@@ -22,15 +22,18 @@ async function authMiddleware(
       const id = verificationResponse._id;
       const user = await User.findById(id);
       if (user) {
-        request.user = user;
+        req.user = user;
         next();
       } else {
+        res.clearCookie("Authorization");
         next(new HttpException(401, "Wrong authentication token"));
       }
     } catch (error) {
+      res.clearCookie("Authorization");
       next(new HttpException(401, "Wrong authentication token"));
     }
   } else {
+    res.clearCookie("Authorization");
     next(new HttpException(401, "Wrong authentication token"));
   }
 }

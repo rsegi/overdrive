@@ -24,7 +24,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     static associate(models: any) {
       // define association here
       User.hasMany(models.Order, {
-        foreignKey: "UserId",
+        foreignKey: "id_user",
       });
     }
   }
@@ -57,6 +57,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
     {
       sequelize,
       modelName: "User",
+      tableName: "users",
+      timestamps: false,
     }
   );
   return User;

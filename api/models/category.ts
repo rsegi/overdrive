@@ -23,7 +23,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     image!: string;
     static associate(models: any) {
       // define association here
-      Category.hasMany(models.Product, { foreignKey: "CategoryId" });
+      Category.hasMany(models.Product, { foreignKey: "id_category" });
     }
   }
   Category.init(
@@ -46,6 +46,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
     {
       sequelize,
       modelName: "Category",
+      tableName: "categories",
+      timestamps: false,
     }
   );
   return Category;

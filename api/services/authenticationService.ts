@@ -15,12 +15,9 @@ export interface DataStoredInToken {
 class AuthenticationService {
   public user = User;
 
-  public createCookie(tokenData: TokenData) {
-    return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn}`;
-  }
   public createToken(user: UserAttributes): TokenData {
     const expiresIn = 60 * 60; // an hour
-    const secret = process.env.JWT_SECRET as string;
+    const secret = (process.env.JWT_SECRET as string) || "my-secret";
     const dataStoredInToken: DataStoredInToken = {
       _id: user.id,
     };
