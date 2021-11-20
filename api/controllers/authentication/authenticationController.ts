@@ -3,7 +3,7 @@ import * as express from "express";
 import { UserAttributes } from "../../models/user";
 import HttpException from "../../exceptions/httpException";
 import * as bcrypt from "bcrypt";
-import LogInDto from "./logInDto";
+import LogInDto, { getLoginDto } from "./logInDto";
 import AuthenticationService from "../../services/authenticationService";
 import db from "../../models";
 
@@ -38,7 +38,8 @@ class AuthenticationController implements Controller {
         new HttpException(403, "A user with that email is already registered")
       );
     } else {
-      const hashedPassword = await bcrypt.hash(userData.hashed_password, 10);
+      console.log(userData.password, "USER DATAAAAAAAAA");
+      const hashedPassword = await bcrypt.hash(userData.password, 10);
       const user = await this.user.create({
         ...userData,
         password: hashedPassword,
@@ -57,12 +58,14 @@ class AuthenticationController implements Controller {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    const logInData: LogInDto = req.body;
+    const logInData = req.body;
     const userData = await this.user.findOne({ email: logInData.email });
+
     if (userData) {
+      const user: LogInDto = getLoginDto(userData);
       const isPasswordMatching = await bcrypt.compare(
         logInData.password,
-        userData.password
+        user.password
       );
       if (isPasswordMatching) {
         userData.password = undefined;

@@ -6,7 +6,7 @@ export interface UserAttributes {
   firstName: string;
   lastName: string;
   email: string;
-  hashed_password: string;
+  password: string;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -20,7 +20,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     firstName!: string;
     lastName!: string;
     email!: string;
-    hashed_password!: string;
+    password!: string;
     static associate(models: any) {
       // define association here
       User.hasMany(models.Order, {
@@ -49,7 +49,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: false,
         unique: true,
       },
-      hashed_password: {
+      password: {
         type: DataTypes.STRING,
         allowNull: false,
       },
