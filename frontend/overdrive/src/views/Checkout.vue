@@ -48,14 +48,14 @@
                         <div class="field">
                             <label>First name*</label>
                             <div class="control">
-                                <input type="text" class="input" v-model="first_name">
+                                <input type="text" class="input" v-model="firstName">
                             </div>
                         </div>
 
                         <div class="field">
                             <label>Last name*</label>
                             <div class="control">
-                                <input type="text" class="input" v-model="last_name">
+                                <input type="text" class="input" v-model="lastName">
                             </div>
                         </div>
 
@@ -66,12 +66,6 @@
                             </div>
                         </div>
 
-                        <div class="field">
-                            <label>Phone*</label>
-                            <div class="control">
-                                <input type="text" class="input" v-model="phone">
-                            </div>
-                        </div>
                     </div>
 
                     <div class="column is-6">
@@ -83,16 +77,23 @@
                         </div>
 
                         <div class="field">
-                            <label>Zip code*</label>
+                            <label>Postal code*</label>
                             <div class="control">
-                                <input type="text" class="input" v-model="zipcode">
+                                <input type="text" class="input" v-model="postalCode">
                             </div>
                         </div>
 
                         <div class="field">
-                            <label>Place*</label>
+                            <label>City*</label>
                             <div class="control">
-                                <input type="text" class="input" v-model="place">
+                                <input type="text" class="input" v-model="city">
+                            </div>
+                        </div>
+                        
+                        <div class="field">
+                            <label>Country*</label>
+                            <div class="control">
+                                <input type="text" class="input" v-model="country">
                             </div>
                         </div>
                     </div>
@@ -104,12 +105,10 @@
 
                 <hr>
 
-                <div id="card-element" class="mb-5"></div>
-
                 <template v-if="cartTotalLength">
                     <hr>
 
-                    <button class="button is-dark" @click="submitForm">Pay with Stripe</button>
+                    <button class="button is-dark" @click="submitForm">Place Order</button>
                 </template>
             </div>
         </div>
@@ -118,6 +117,7 @@
 
 <script lang="ts">
 import { ICartItem } from "@/models/cartItem";
+import orderService from "@/services/orderService";
 import { defineComponent } from "vue";
 
 interface Data {
@@ -187,19 +187,42 @@ export default defineComponent({
           this.errors.push('The country field is missing!')
       } 
 
-      // if (!this.errors.length) {
-      //     this.$store.commit('setIsLoading', true);
-      //     this.stripe.createToken(this.card).then(result => {                    
-      //         if (result.error) {
-      //             this.$store.commit('setIsLoading', false)
-      //             this.errors.push('Something went wrong with Stripe. Please try again')
-      //             console.log(result.error.message)
-      //         } else {
-      //             this.stripeTokenHandler(result.token)
-      //         }
-      //     })
-      // }
+      const data = {
+        'items': this.cart.items,
+        'firstName': this.firstName,
+        'lastName': this.lastName,
+        'email': this.email,
+        'address': this.address,
+        'city': this.city,
+        'postalCode': this.postalCode,
+        'country': this.country,
+      }
+
+      if (!this.errors.length) {
+         orderService.placeOrder(data)
+         .then(() => {
+          this.$store.commit('clearCart');
+          this.$router.push('/cart/checkout/success');
+
+        })
+      .catch((error: Error) => {
+        this.errors.push('Something went wrong. Please try again');
+        console.log(error);
+        });
+      }
     }
   },
+  computed: {
+     cartTotalLength(): number {
+      return this.cart.items.reduce((acc: number, currentValue: ICartItem) => {
+        return acc += currentValue.quantity
+      }, 0);
+    },
+    cartTotalPrice(): number {
+      return this.cart.items.reduce((acc: number, currentValue: ICartItem) => {
+        return acc += currentValue.product.price * currentValue.quantity
+      }, 0);
+    }
+    }
 });
 </script>

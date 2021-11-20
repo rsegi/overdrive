@@ -7,7 +7,6 @@ interface State {
     items: ICartItem[]
   },
   isAuthenticated: boolean,
-  // token: string,
   isLoading: boolean,
 }
 
@@ -18,7 +17,6 @@ export default createStore<State>({
       items: [],
     },
     isAuthenticated: false,
-    // token: '',
     isLoading: false,
   },
   mutations: {
@@ -28,14 +26,6 @@ export default createStore<State>({
       } else {
         localStorage.setItem('cart', JSON.stringify(state.cart));
       }
-
-      // if (localStorage.getItem('token')) {
-      //   state.token = localStorage.getItem('token')!;
-      //   state.isAuthenticated = true;
-      // } else {
-      //   state.token = '';
-      //   state.isAuthenticated = false;
-      // }
     },
     addToCart(state, item){
       const existingItems = state.cart.items.filter(i => i.product.id === item.product.id);
@@ -48,20 +38,17 @@ export default createStore<State>({
     setIsLoading(state, status){
       state.isLoading = status;
     },
-    // setToken(state, token) {
-    //   state.token = token;
-    //   state.isAuthenticated = true;
-    // },
-    // removeToken(state) {
-    //   state.token = '';
-    //   state.isAuthenticated = false ;
-    // },
     setAuthentication(state) {
       state.isAuthenticated = true;
     },
     removeAuthentication(state) {
       state.isAuthenticated = false ;
     },
+    clearCart(state) {
+      state.cart = { items: [] }
+
+      localStorage.setItem('cart', JSON.stringify(state.cart));
+    }
   },
   actions: {
   },

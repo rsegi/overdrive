@@ -85,7 +85,6 @@ export default defineComponent({
         return acc += currentValue.product.price * currentValue.quantity
       }, 0);
     }
-
   },
 });
 </script>
