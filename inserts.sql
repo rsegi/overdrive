@@ -1,5 +1,5 @@
 SET
-    search_path TO overdrive;
+    search_path TO public;
 
 BEGIN WORK;
 

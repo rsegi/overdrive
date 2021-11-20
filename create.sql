@@ -1,11 +1,5 @@
-DROP SCHEMA IF EXISTS overdrive CASCADE;
-
-CREATE SCHEMA overdrive AUTHORIZATION postgres;
-
-GRANT ALL ON SCHEMA overdrive TO postgres;
-
 SET
-    search_path TO overdrive;
+    search_path TO public;
 
 BEGIN WORK;
 
