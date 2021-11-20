@@ -45,7 +45,7 @@
     </section>
 
     <footer class="footer">
-      <p class="has-text-centered">Copyright (c) 2021</p>
+      <p class="has-text-centered">© 2021 Overdrive</p>
     </footer>
   </div>
 </template>
@@ -54,7 +54,6 @@
 
 import { defineComponent } from 'vue';
 import { ICartItem } from "@/models/cartItem";
-// import axios from 'axios';
 
 interface Data {
   showMobileMenu: boolean,
@@ -72,13 +71,8 @@ export default defineComponent ({
       }
     };
   },
-  beforeCreate(): void {
+  beforeCreate() {
     this.$store.commit('initializeStore');
-
-    // const token = this.$store.state.token;
-
-    // axios.defaults.headers.common['Authorization'] = token ? 'Token' + token : '';
-
   },
   mounted() {
     this.cart = this.$store.state.cart;

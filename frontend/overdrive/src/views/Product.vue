@@ -68,7 +68,7 @@ export default defineComponent({
 
       this.$store.commit('setIsLoading', false);
     },
-    addToCart():void {
+    addToCart() {
       if(isNaN(this.quantity) || this.quantity < 1) {
         this.quantity = 1;
       }

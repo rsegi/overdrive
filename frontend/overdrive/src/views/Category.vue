@@ -48,7 +48,7 @@ export default defineComponent({
       }
   },
   methods: {
-     getCategory(): void {
+     getCategory() {
 
       const categoryId = this.$route.params.categoryId as string;
       categoryService.getCategory(categoryId)

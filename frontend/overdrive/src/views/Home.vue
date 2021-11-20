@@ -46,7 +46,7 @@ export default defineComponent({
     document.title = 'Home | Overdrive';
   },
   methods: {
-    getCategories(): void {
+    getCategories() {
       categoryService.getCategories().then(response => {
         this.categories = response.data;
       }).catch((error: Error) => {
