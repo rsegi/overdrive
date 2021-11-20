@@ -4,7 +4,13 @@ import authMiddleware from "../middleware/authenticationMiddleware";
 import { CategoryAttributes } from "../models/category";
 import Controller from "./controller";
 import db from "../models";
-import CategoryDto, { getCategoryDto } from "../dtos/categoryDto";
+import {
+  CategoryDto,
+  CategoryListDto,
+  getCategoryDto,
+  getCategoryListDto,
+} from "../dtos/categoryDto";
+import ProductDto from "../dtos/productDto";
 
 class CategoriesController implements Controller {
   public path = "/categories";
@@ -44,10 +50,9 @@ class CategoriesController implements Controller {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    let categoriesItems = await this.category.findAll();
-
-    const categoriesDto: CategoryDto[] = categoriesItems.map((c: any) => {
-      const category: CategoryDto = getCategoryDto(c);
+    let categoriesItems: CategoryAttributes[] = await this.category.findAll();
+    const categoriesDto: CategoryListDto[] = categoriesItems.map((c: any) => {
+      const category: CategoryListDto = getCategoryListDto(c);
 
       return category;
     });

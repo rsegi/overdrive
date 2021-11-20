@@ -2,10 +2,11 @@ import Controller from "../controller";
 import * as express from "express";
 import { UserAttributes } from "../../models/user";
 import HttpException from "../../exceptions/httpException";
-import LogInDto from "./logInDto";
+import * as bcrypt from "bcrypt";
+import LogInDto, { getLoginDto } from "./logInDto";
 import AuthenticationService from "../../services/authenticationService";
 import db from "../../models";
-import bcrypt from "bcrypt";
+import { getUserDto } from "../../dtos/userDto";
 
 class AuthenticationController implements Controller {
   public path = "/auth";
@@ -38,17 +39,18 @@ class AuthenticationController implements Controller {
         new HttpException(403, "A user with that email is already registered")
       );
     } else {
-      const hashedPassword = await bcrypt.hash(userData.hashed_password, 10);
+      const hashedPassword = await bcrypt.hash(userData.password, 10);
       const user = await this.user.create({
         ...userData,
         password: hashedPassword,
       });
       user.password = undefined;
       const tokenData = this.authenticationService.createToken(user);
-      res.setHeader("Set-Cookie", [
-        this.authenticationService.createCookie(tokenData),
-      ]);
-      res.send(user);
+      res.cookie("Authorization", tokenData.token, {
+        maxAge: tokenData.expiresIn,
+        httpOnly: true,
+      });
+      res.send(getUserDto(user));
     }
   };
 
@@ -57,20 +59,23 @@ class AuthenticationController implements Controller {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    const logInData: LogInDto = req.body;
+    const logInData = req.body;
     const userData = await this.user.findOne({ email: logInData.email });
+
     if (userData) {
+      const user: LogInDto = getLoginDto(userData);
       const isPasswordMatching = await bcrypt.compare(
         logInData.password,
-        userData.password
+        user.password
       );
       if (isPasswordMatching) {
         userData.password = undefined;
         const tokenData = this.authenticationService.createToken(userData);
-        res.setHeader("Set-Cookie", [
-          this.authenticationService.createCookie(tokenData),
-        ]);
-        res.send(userData);
+        res.cookie("Authorization", tokenData.token, {
+          httpOnly: true,
+          maxAge: tokenData.expiresIn,
+        });
+        res.status(200).send(getUserDto(user));
       } else {
         next(new HttpException(401, "Wrong credentials provided"));
       }

@@ -26,9 +26,10 @@ class OrdersController implements Controller {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    const orderId = req.params.id;
+    const orderId = req.params.orderId;
+    const userId = req.params.userId;
     let existingOrder = await this.order.findOne({
-      where: { id: orderId },
+      where: { id_order: orderId, id_user: userId },
       include: [
         {
           model: db.Product,
@@ -71,3 +72,5 @@ class OrdersController implements Controller {
     res.send("Delete order");
   }; */
 }
+
+export default OrdersController;

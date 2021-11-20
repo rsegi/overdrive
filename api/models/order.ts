@@ -3,14 +3,14 @@ import { Model, UUIDV4 } from "sequelize";
 
 interface OrderAttributes {
   id: string;
-  name: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   address: string;
   email: string;
   city: string;
-  postal_code: string;
+  postalCode: string;
   country: string;
-  UserId: string;
+  id_user: string;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -21,19 +21,19 @@ module.exports = (sequelize: any, DataTypes: any) => {
      * The `models/index` file will call this method automatically.
      */
     id!: string;
-    name!: string;
-    lastname!: string;
+    firstName!: string;
+    lastName!: string;
     address!: string;
     email!: string;
     city!: string;
-    postal_code!: string;
+    postalCode!: string;
     country!: string;
-    UserId!: string;
+    id_user!: string;
     static associate(models: any) {
       // define association here
       Order.belongsTo(models.User);
       Order.belongsToMany(models.Product, {
-        through: "OrderProducts",
+        through: "orderproducts",
       });
     }
   }
@@ -45,11 +45,11 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: false,
         primaryKey: true,
       },
-      name: {
+      firstName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      lastname: {
+      lastName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -65,7 +65,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      postal_code: {
+      postalCode: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -73,7 +73,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      UserId: {
+      id_user: {
         type: DataTypes.UUID,
         allowNull: false,
       },
@@ -81,6 +81,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
     {
       sequelize,
       modelName: "Order",
+      tableName: "orders",
+      timestamps: false,
     }
   );
   return Order;
