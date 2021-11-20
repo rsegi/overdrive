@@ -8,6 +8,7 @@ import Category from '../views/Category.vue';
 import Cart from '../views/Cart.vue';
 import MyAccount from '../views/MyAccount.vue';
 import Checkout from '../views/Checkout.vue';
+import Success from '../views/Success.vue';
 import store from '@/store';
 
 const routes: Array<RouteRecordRaw> = [
@@ -61,6 +62,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/cart/checkout',
     name: 'Checkout',
     component: Checkout,
+    meta: {
+      requireLogin: true,
+    }
+  },
+  {
+    path: '/cart/checkout/success',
+    name: 'Success',
+    component: Success,
     meta: {
       requireLogin: true,
     }

@@ -49,7 +49,7 @@ export default defineComponent({
       quantity: 1
     }
   },
-  mounted(): void {
+  mounted() {
     this.getProduct()
   },
   methods: {

@@ -37,7 +37,7 @@ export default defineComponent({
       products:[]
     }
   },
-  mounted(): void {
+  mounted() {
     this.getCategory();
   },
   watch: { 

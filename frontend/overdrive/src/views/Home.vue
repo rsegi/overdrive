@@ -41,7 +41,7 @@ export default defineComponent({
   components: {
     CategoryCard,
   },
-  mounted(): void {
+  mounted() {
     this.getCategories();
     document.title = 'Home | Overdrive';
   },
