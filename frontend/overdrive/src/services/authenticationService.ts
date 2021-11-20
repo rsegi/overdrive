@@ -11,6 +11,10 @@ class AuthenticationService {
   logIn(data: ILogInData): Promise<AxiosResponse> {
     return http.post("/auth/login", data);
   }
+ 
+  logOut(): Promise<AxiosResponse> {
+    return http.post("/auth/logout");
+  }
 }
 
 export default new AuthenticationService();
