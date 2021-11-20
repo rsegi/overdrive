@@ -4,22 +4,22 @@ import { QueryInterface, Sequelize } from "sequelize/types";
 
 module.exports = {
   up: async (queryInterface: QueryInterface, Sequelize: any) => {
-    await queryInterface.createTable("Categories", {
+    await queryInterface.createTable("OrderProducts", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      id_order: {
         type: Sequelize.STRING,
       },
-      image: {
+      id_product: {
         type: Sequelize.STRING,
       },
     });
   },
   down: async (queryInterface: QueryInterface, Sequelize: any) => {
-    await queryInterface.dropTable("Categories");
+    await queryInterface.dropTable("OrderProducts");
   },
 };
