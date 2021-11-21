@@ -43,7 +43,7 @@ INSERT INTO
         "price",
         "image",
         "description",
-        "id_category"
+        "category_id"
     )
 VALUES
     (
@@ -62,7 +62,7 @@ INSERT INTO
         "price",
         "image",
         "description",
-        "id_category"
+        "category_id"
     )
 VALUES
     (
@@ -81,7 +81,7 @@ INSERT INTO
         "price",
         "image",
         "description",
-        "id_category"
+        "category_id"
     )
 VALUES
     (
@@ -100,7 +100,7 @@ INSERT INTO
         "price",
         "image",
         "description",
-        "id_category"
+        "category_id"
     )
 VALUES
     (
@@ -119,7 +119,7 @@ INSERT INTO
         "price",
         "image",
         "description",
-        "id_category"
+        "category_id"
     )
 VALUES
     (
@@ -138,7 +138,7 @@ INSERT INTO
         "price",
         "image",
         "description",
-        "id_category"
+        "category_id"
     )
 VALUES
     (
@@ -157,7 +157,7 @@ INSERT INTO
         "price",
         "image",
         "description",
-        "id_category"
+        "category_id"
     )
 VALUES
     (
@@ -176,7 +176,7 @@ INSERT INTO
         "price",
         "image",
         "description",
-        "id_category"
+        "category_id"
     )
 VALUES
     (
@@ -195,7 +195,7 @@ INSERT INTO
         "price",
         "image",
         "description",
-        "id_category"
+        "category_id"
     )
 VALUES
     (
