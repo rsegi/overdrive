@@ -1,12 +1,5 @@
 <template>
   <div class="home">
-    <section class="hero is-medium">
-        <div class="hero-body has-text-centered">
-            <p class="title mb-6">
-                Overdrive
-            </p>
-        </div>
-    </section>
 
     <div class="columns is-multiline">
 

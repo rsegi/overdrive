@@ -41,7 +41,6 @@
 <script lang="ts">
 import authenticationService from "@/services/authenticationService";
 import { defineComponent } from "vue";
-// import axios from "axios";
 
 interface Data {
    email: string,
@@ -70,8 +69,7 @@ export default defineComponent({
 
       authenticationService.logIn(formData).then(() => {
         this.$store.commit('setAuthentication');
-        const toPath = this.$route.query.to || '/cart';
-        this.$router.push(toPath as string);
+        this.$router.push("/");
       })
       .catch(error => {
           if (error.response) {
