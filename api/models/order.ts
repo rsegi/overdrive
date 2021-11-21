@@ -83,6 +83,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       modelName: "Order",
       tableName: "orders",
       timestamps: false,
+      underscored: true
     }
   );
   return Order;

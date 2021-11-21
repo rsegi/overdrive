@@ -39,34 +39,17 @@ export default defineComponent({
   mounted() {
     this.getProductsByCategoryId();
   },
-  watch: { 
-      $route(to) {
-          if (to.name === 'Category') {
-              this.getProductsByCategoryId();
-          }
-      }
-  },
   methods: {
-    //  getCategory() {
-
-    //   const categoryId = this.$route.params.categoryId as string;
-    //   categoryService.getCategory(categoryId)
-    //   .then((response) => {
-    //       this.categoryName = response.data.name;
-
-    //       document.title = this.categoryName + ' | Overdrive';
-    //     })
-    //   .catch((error: Error) => console.log(error));
-
-    // },
-    
     async getProductsByCategoryId(): Promise<void> {
       this.$store.commit('setIsLoading', true);
 
-      const category = this.$route.params.categoryId as string;
-      await categoryService.getProductsByCategoryId(category)
+      const categoryId = this.$route.params.categoryId as string;
+      await categoryService.getProductsByCategoryId(categoryId)
       .then((response) => {
-          this.products = response.data;
+          this.products = response.data.products;
+          this.categoryName = response.data.name;
+
+          document.title = this.categoryName + ' | Overdrive';
 
         })
       .catch((error: Error) => console.log(error));
@@ -74,9 +57,6 @@ export default defineComponent({
       this.$store.commit('setIsLoading', false);
     },
 
-  },
-
-
-  
+  }, 
 });
 </script>

@@ -4,7 +4,6 @@ import { Model, UUIDV4 } from "sequelize";
 export interface ProductAttributes {
   id: string;
   name: string;
-  amount: number;
   price: number;
   image: string;
   description: string;
@@ -20,7 +19,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
      */
     id!: string;
     name!: string;
-    amount!: number;
     price!: number;
     image!: string;
     description!: string;
@@ -45,10 +43,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      amount: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
       price: {
         type: DataTypes.DECIMAL,
         allowNull: false,
@@ -71,6 +65,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       modelName: "Product",
       tableName: "products",
       timestamps: false,
+      underscored: true
     }
   );
   return Product;

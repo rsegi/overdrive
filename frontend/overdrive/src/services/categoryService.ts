@@ -1,14 +1,14 @@
 import { ICategory } from "@/models/category";
-import { IProduct } from "@/models/product";
+import { ICategoryListItem } from "@/models/categoryListItem";
 import { AxiosResponse } from "axios";
 import http from "./common/http-common";
 
 class CategoryService {
-  getCategories(): Promise<AxiosResponse<ICategory[]>> {
+  getCategories(): Promise<AxiosResponse<ICategoryListItem[]>> {
     return http.get("/categories");
   }
 
-  getProductsByCategoryId(categoryId: string): Promise<AxiosResponse<IProduct[]>> {
+  getProductsByCategoryId(categoryId: string): Promise<AxiosResponse<ICategory>> {
     return http.get(`/categories/${categoryId}/`);
   }
 }

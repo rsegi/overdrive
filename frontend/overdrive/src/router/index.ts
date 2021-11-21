@@ -35,13 +35,14 @@ const routes: Array<RouteRecordRaw> = [
       requireLogin: true,
     }
   },
+  // TODO: PLEASE CHANGE THIS
   {
     path: '/:category/:productId',
     name: 'Product',
     component: Product
   },
   {
-    path: '/:categories/:categoryId',
+    path: '/categories/:categoryId',
     name: 'Category',
     component: Category 
   },

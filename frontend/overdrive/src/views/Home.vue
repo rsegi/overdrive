@@ -16,12 +16,12 @@
 <script lang="ts">
 import CategoryCard from '@/components/CategoryCard.vue'
 import { defineComponent } from 'vue';
-import { ICategory } from '@/models/category';
+import { ICategoryListItem } from '@/models/categoryListItem';
 import categoryService from '@/services/categoryService';
 
 
 interface Data {
- categories: ICategory[]
+ categories: ICategoryListItem[]
 }
 
 export default defineComponent({
