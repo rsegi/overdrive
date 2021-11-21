@@ -10,7 +10,7 @@ interface OrderAttributes {
   city: string;
   postalCode: string;
   country: string;
-  id_user: string;
+  user_id: string;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -28,7 +28,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     city!: string;
     postalCode!: string;
     country!: string;
-    id_user!: string;
+    user_id!: string;
     static associate(models: any) {
       // define association here
       Order.belongsTo(models.User);
@@ -73,7 +73,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      id_user: {
+      user_id: {
         type: DataTypes.UUID,
         allowNull: false,
       },

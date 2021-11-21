@@ -2,8 +2,8 @@
 import { Model, UUIDV4 } from "sequelize";
 
 interface OrderProductAttributes {
-  id_order: string;
-  id_product: string;
+  order_id: string;
+  product_id: string;
   quantity: number;
 }
 
@@ -17,8 +17,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    id_order!: string;
-    id_product!: string;
+    order_id!: string;
+    product_id!: string;
     quantity!: number;
     static associate(models: any) {
       // define association here
@@ -26,8 +26,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
   }
   OrderProduct.init(
     {
-      id_order: DataTypes.UUID,
-      id_product: DataTypes.UUID,
+      order_id: DataTypes.UUID,
+      product_id: DataTypes.UUID,
       quantity: DataTypes.INTEGER,
     },
     {

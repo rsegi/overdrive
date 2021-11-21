@@ -7,7 +7,7 @@ export interface ProductAttributes {
   price: number;
   image: string;
   description: string;
-  id_category: string;
+  category_id: string;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -22,7 +22,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     price!: number;
     image!: string;
     description!: string;
-    id_category!: string;
+    category_id!: string;
     static associate(models: any) {
       // define association here
       Product.belongsToMany(models.Order, {
@@ -55,7 +55,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      id_category: {
+      category_id: {
         type: DataTypes.UUID,
         allowNull: false,
       },
