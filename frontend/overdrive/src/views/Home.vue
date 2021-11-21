@@ -26,13 +26,13 @@ interface Data {
 
 export default defineComponent({
   name: 'Home',
+  components: {
+    CategoryCard,
+  },
   data(): Data {
     return {
       categories: []
       }
-  },
-  components: {
-    CategoryCard,
   },
   mounted() {
     this.getCategories();
@@ -44,9 +44,8 @@ export default defineComponent({
         this.categories = response.data;
       }).catch((error: Error) => {
         console.log(error);
-        
-      })
-    }
-  }
-  })
+      });
+    },
+  },
+});
 </script>

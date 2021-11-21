@@ -9,7 +9,7 @@ class CategoryService {
   }
 
   getProductsByCategoryId(categoryId: string): Promise<AxiosResponse<ICategory>> {
-    return http.get(`/categories/${categoryId}/`);
+    return http.get(`/categories/${categoryId}`);
   }
 }
 

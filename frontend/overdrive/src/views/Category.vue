@@ -5,10 +5,11 @@
                 <h2 class="is-size-2 has-text-centered">{{ categoryName }}</h2>
             </div>
 
-    <ProductCard 
-      v-for="product in products"
-      v-bind:key="product.id"
-      v-bind:product="product" />
+      <ProductCard 
+        v-for="product in products"
+        v-bind:key="product.id"
+        v-bind:product="product" 
+      />
      </div>
   </div>
 </template>
@@ -56,7 +57,6 @@ export default defineComponent({
 
       this.$store.commit('setIsLoading', false);
     },
-
   }, 
 });
 </script>

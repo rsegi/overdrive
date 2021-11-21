@@ -35,9 +35,8 @@ const routes: Array<RouteRecordRaw> = [
       requireLogin: true,
     }
   },
-  // TODO: PLEASE CHANGE THIS
   {
-    path: '/:category/:productId',
+    path: '/products/:productId',
     name: 'Product',
     component: Product
   },
