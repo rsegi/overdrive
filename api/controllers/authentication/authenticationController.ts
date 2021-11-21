@@ -75,7 +75,7 @@ class AuthenticationController implements Controller {
           httpOnly: true,
           maxAge: tokenData.expiresIn,
         });
-        res.status(200).send(getUserDto(user));
+        res.status(200).send(getUserDto(userData));
       } else {
         next(new HttpException(401, "Wrong credentials provided"));
       }
