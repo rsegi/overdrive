@@ -19,7 +19,6 @@ import { IProduct } from "@/models/product";
 import categoryService from "@/services/categoryService";
 import ProductCard from '@/components/ProductCard.vue'
 import { defineComponent } from "vue";
-import productService from "@/services/productService";
 
 interface Data {
   categoryName: string,
@@ -38,34 +37,34 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.getCategory();
+    this.getProductsByCategoryId();
   },
   watch: { 
       $route(to) {
           if (to.name === 'Category') {
-              this.getCategory();
+              this.getProductsByCategoryId();
           }
       }
   },
   methods: {
-     getCategory() {
+    //  getCategory() {
 
-      const categoryId = this.$route.params.categoryId as string;
-      categoryService.getCategory(categoryId)
-      .then((response) => {
-          this.categoryName = response.data.name;
+    //   const categoryId = this.$route.params.categoryId as string;
+    //   categoryService.getCategory(categoryId)
+    //   .then((response) => {
+    //       this.categoryName = response.data.name;
 
-          document.title = this.categoryName + ' | Overdrive';
-        })
-      .catch((error: Error) => console.log(error));
+    //       document.title = this.categoryName + ' | Overdrive';
+    //     })
+    //   .catch((error: Error) => console.log(error));
 
-    },
+    // },
     
-    async getProducts(): Promise<void> {
+    async getProductsByCategoryId(): Promise<void> {
       this.$store.commit('setIsLoading', true);
 
-      const category = this.$route.params.category as string;
-      await productService.getProductsByCategory(category)
+      const category = this.$route.params.categoryId as string;
+      await categoryService.getProductsByCategoryId(category)
       .then((response) => {
           this.products = response.data;
 
