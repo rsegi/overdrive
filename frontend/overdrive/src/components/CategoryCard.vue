@@ -1,6 +1,7 @@
 <template>
     <div class="is-dark column is-3">
-      <router-link v-bind:to="category.get_absolute_url" class="button is-dark mt-4">
+      <!-- TODO: use the correct url -->
+      <router-link v-bind:to="categories/$category.id" class="button is-dark mt-4">
         <div class="box">
               <figure class="image mb-4">
                   <img v-bind:src="category.image">
