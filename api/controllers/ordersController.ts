@@ -60,6 +60,8 @@ class OrdersController implements Controller {
 
   private createOrder = (req: express.Request, res: express.Response) => {
     const order = req.body;
+    console.log(order);
+
     this.order.create(order);
     res.status(201).send(order);
   };
