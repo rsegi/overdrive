@@ -1,6 +1,6 @@
 <template>
   <div class="page-category">
-    <div class="columns is-multiline">
+    <div class="columns is-multiline is-centered">
       <div class="column is-12">
         <h2 class="is-size-2 has-text-centered">{{ categoryName }}</h2>
       </div>

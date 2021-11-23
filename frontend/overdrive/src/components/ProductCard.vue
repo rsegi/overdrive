@@ -1,8 +1,8 @@
 <template>
     <div class="column is-3">
       <router-link v-bind:to="'/products/' + product.id">
-        <div class="box">
-          <figure class="image mb-4">
+        <div class="box ">
+          <figure class="image mb-4 is-4by3">
               <img v-bind:src="require('@/assets/images/' + product.image)">
           </figure>
 
