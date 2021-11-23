@@ -34,9 +34,10 @@
 import productService from "@/services/productService";
 import { IProduct } from "@/models/product";
 import { defineComponent } from "vue";
+import { toast } from 'bulma-toast';
 
 interface Data {
-  product: IProduct | null;
+  product: IProduct;
   quantity: number;
 }
 
@@ -44,7 +45,7 @@ export default defineComponent({
   name: "Product",
   data(): Data {
     return {
-      product: null,
+      product: {id: '', name: '', image: '', price: 0, description:''},
       quantity: 1,
     };
   },
@@ -68,7 +69,7 @@ export default defineComponent({
       this.$store.commit("setIsLoading", false);
     },
 
-    addToCart() {
+    addToCart() {      
       if (isNaN(this.quantity) || this.quantity < 1) {
         this.quantity = 1;
       }
@@ -78,6 +79,15 @@ export default defineComponent({
       };
 
       this.$store.commit("addToCart", item);
+
+      toast({
+          message: 'The product was added to the cart',
+          type: 'is-success',
+          dismissible: true,
+          pauseOnHover: true,
+          duration: 2000,
+          position: 'bottom-right',
+      });
     },
   },
 });
