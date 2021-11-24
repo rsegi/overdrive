@@ -1,5 +1,5 @@
 <template>
-  <div class="page-my-account">
+  <div class="page-my-account section">
     <div class="columns is-multiline">
       <div class="column is-12">
         <h1 class="title">My account</h1>
@@ -25,11 +25,11 @@
 </template>
 
 <script lang="ts">
-import authenticationService from "@/services/authenticationService";
-import { defineComponent } from "vue";
-import { IOrder } from "@/models/order";
-import OrderSummary from "@/components/OrderSummary.vue";
-import userService from "@/services/userService";
+import authenticationService from '@/services/authenticationService';
+import { defineComponent } from 'vue';
+import { IOrder } from '@/models/order';
+import OrderSummary from '@/components/OrderSummary.vue';
+import userService from '@/services/userService';
 
 interface Data {
   id: string;
@@ -40,28 +40,28 @@ interface Data {
 }
 
 export default defineComponent({
-  name: "MyAccount",
+  name: 'MyAccount',
   components: {
     OrderSummary,
   },
   data(): Data {
     return {
-      id: "",
-      firstname: "",
-      lastname: "",
-      email: "",
+      id: '',
+      firstname: '',
+      lastname: '',
+      email: '',
       orders: [],
     };
   },
   mounted() {
-    document.title = "My account | Overdrive";
+    document.title = 'My account | Overdrive';
     this.getOrders();
   },
   methods: {
     logout() {
       authenticationService.logOut().then(() => {
-        this.$store.commit("removeAuthentication");
-        this.$router.push("/");
+        this.$store.commit('removeAuthentication');
+        this.$router.push('/');
       });
     },
 
