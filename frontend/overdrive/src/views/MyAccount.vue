@@ -53,7 +53,7 @@ export default defineComponent({
       orders: [],
     };
   },
-  mounted() {
+  created() {
     document.title = "My account | Overdrive";
     this.getOrders();
   },
