@@ -1,15 +1,14 @@
 <template>
-    <div class="is-dark column is-3">
-       <div class="box">
-            <figure class="image mb-4">
-                <img v-bind:src="category.image">
-            </figure>
+    <div class="is-dark column">
+      <router-link v-bind:to="'/categories/' + category.id">
+        <div class="box">
+              <figure class="image mb-4 is-4by3">
+                  <img v-bind:src="require('@/assets/images/' + category.image)">
+              </figure>
 
-            <h3 class="is-size-4">{{ category.name }}</h3>
-            
-            <!-- TODO: wrap the whole component with router-link -->
-            <!-- <router-link v-bind:to="category.get_absolute_url" class="button is-dark mt-4">View details</router-link> -->
-        </div>
+              <h3 class="is-size-4 has-text-centered">{{ category.name }}</h3>
+          </div>
+        </router-link>
       </div>
 </template>
 

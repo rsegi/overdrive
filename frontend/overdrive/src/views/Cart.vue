@@ -8,7 +8,7 @@
       <div class="column is-12 box">
         <table class="table is-fullwidth" v-if="cartTotalLength">
             <thead>
-                <tr>
+                <tr  class="has-text-centered">
                     <th>Product</th>
                     <th>Price</th>
                     <th>Quantity</th>
@@ -31,7 +31,7 @@
         <div class="column is-12 box">
             <h2 class="subtitle">Summary</h2>
 
-            <strong>${{ cartTotalPrice.toFixed(2) }}</strong>, {{ cartTotalLength }} items
+            <strong>{{ cartTotalPrice.toFixed(2)}} €</strong>, {{ cartTotalLength }} items
 
             <hr>
 
@@ -85,7 +85,6 @@ export default defineComponent({
         return acc += currentValue.product.price * currentValue.quantity
       }, 0);
     }
-
   },
 });
 </script>

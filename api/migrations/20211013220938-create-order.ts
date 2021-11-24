@@ -8,10 +8,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      firstName: {
+      firstname: {
         type: Sequelize.STRING,
       },
-      lastName: {
+      lastname: {
         type: Sequelize.STRING,
       },
       address: {
@@ -23,7 +23,7 @@ module.exports = {
       city: {
         type: Sequelize.STRING,
       },
-      postalCode: {
+      postalcode: {
         type: Sequelize.STRING,
       },
       country: {

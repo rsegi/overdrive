@@ -11,10 +11,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      id_order: {
+      order_id: {
         type: Sequelize.STRING,
       },
-      id_product: {
+      product_id: {
         type: Sequelize.STRING,
       },
     });

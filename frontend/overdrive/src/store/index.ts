@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { createStore, Store } from 'vuex';
-import { ICartItem } from '@/models/cartItem';
+import { createStore, Store } from "vuex";
+import { ICartItem } from "@/models/cartItem";
 
 interface State {
   cart: {
-    items: ICartItem[]
-  },
-  isAuthenticated: boolean,
-  // token: string,
-  isLoading: boolean,
+    items: ICartItem[];
+  };
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  user_id: string;
 }
-
 
 export default createStore<State>({
   state: {
@@ -18,57 +17,48 @@ export default createStore<State>({
       items: [],
     },
     isAuthenticated: false,
-    // token: '',
     isLoading: false,
+    user_id: "",
   },
   mutations: {
     initializeStore(state) {
-      if (localStorage.getItem('cart')){
-        state.cart = JSON.parse(localStorage.getItem('cart')!);
+      if (localStorage.getItem("cart")) {
+        state.cart = JSON.parse(localStorage.getItem("cart")!);
       } else {
-        localStorage.setItem('cart', JSON.stringify(state.cart));
+        localStorage.setItem("cart", JSON.stringify(state.cart));
       }
-
-      // if (localStorage.getItem('token')) {
-      //   state.token = localStorage.getItem('token')!;
-      //   state.isAuthenticated = true;
-      // } else {
-      //   state.token = '';
-      //   state.isAuthenticated = false;
-      // }
     },
-    addToCart(state, item){
-      const existingItems = state.cart.items.filter(i => i.product.id === item.product.id);
+    addToCart(state, item) {
+      const existingItems = state.cart.items.filter(
+        (i) => i.product.id === item.product.id
+      );
       if (existingItems.length) {
-        existingItems[0].quantity = existingItems[0].quantity + parseInt(item.quantity);
+        existingItems[0].quantity =
+          existingItems[0].quantity + parseInt(item.quantity);
       } else {
         state.cart.items.push(item);
       }
     },
-    setIsLoading(state, status){
+    setIsLoading(state, status) {
       state.isLoading = status;
     },
-    // setToken(state, token) {
-    //   state.token = token;
-    //   state.isAuthenticated = true;
-    // },
-    // removeToken(state) {
-    //   state.token = '';
-    //   state.isAuthenticated = false ;
-    // },
-    setAuthentication(state) {
+    setAuthentication(state, user_id) {
       state.isAuthenticated = true;
+      state.user_id = user_id;
     },
     removeAuthentication(state) {
-      state.isAuthenticated = false ;
+      state.isAuthenticated = false;
+      state.user_id = "";
+    },
+    clearCart(state) {
+      state.cart = { items: [] };
+
+      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
   },
-  actions: {
-  },
-  modules: {
-  }
-})
-
+  actions: {},
+  modules: {},
+});
 
 declare module "@vue/runtime-core" {
   interface ComponentCustomProperties {

@@ -4,11 +4,10 @@ import { Model, UUIDV4 } from "sequelize";
 export interface ProductAttributes {
   id: string;
   name: string;
-  amount: number;
   price: number;
   image: string;
   description: string;
-  id_category: string;
+  category_id: string;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -20,11 +19,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
      */
     id!: string;
     name!: string;
-    amount!: number;
     price!: number;
     image!: string;
     description!: string;
-    id_category!: string;
+    category_id!: string;
     static associate(models: any) {
       // define association here
       Product.belongsToMany(models.Order, {
@@ -45,10 +43,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      amount: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
       price: {
         type: DataTypes.DECIMAL,
         allowNull: false,
@@ -61,7 +55,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      id_category: {
+      category_id: {
         type: DataTypes.UUID,
         allowNull: false,
       },
@@ -71,6 +65,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       modelName: "Product",
       tableName: "products",
       timestamps: false,
+      underscored: true
     }
   );
   return Product;

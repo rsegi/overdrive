@@ -1,14 +1,17 @@
 import * as express from "express";
 import { Router } from "express";
 import OrderDto, { getOrderDto } from "../dtos/orderDto";
+import { OrderWithProducts } from "../dtos/orderWithProducts";
 import HttpException from "../exceptions/httpException";
 import db from "../models";
+import { ProductAttributes } from "../models/product";
 import Controller from "./controller";
 
 class OrdersController implements Controller {
   public path = "/orders";
   public router = Router();
   private order = db.Order;
+  private product = db.Product;
 
   constructor() {
     this.initializeRoutes();
@@ -29,7 +32,7 @@ class OrdersController implements Controller {
     const orderId = req.params.orderId;
     const userId = req.params.userId;
     let existingOrder = await this.order.findOne({
-      where: { id_order: orderId, id_user: userId },
+      where: { id_order: orderId, user_id: userId },
       include: [
         {
           model: db.Product,
@@ -58,10 +61,42 @@ class OrdersController implements Controller {
     res.send(orderDto);
   };
 
-  private createOrder = (req: express.Request, res: express.Response) => {
-    const order = req.body;
-    this.order.create(order);
-    res.status(201).send(order);
+  private createOrder = async (req: express.Request, res: express.Response) => {
+    const order: OrderWithProducts = req.body;
+    console.log(order);
+
+    const newOrder = this.order
+      .create({
+        firstname: order.firstname,
+        lastname: order.lastname,
+        address: order.address,
+        email: order.email,
+        city: order.city,
+        postalcode: order.postalcode,
+        country: order.country,
+        user_id: order.user_id,
+      })
+      .then(
+        (newOrder: {
+          addProduct: (
+            arg0: ProductAttributes,
+            arg1: { through: { quantity: number } }
+          ) => void;
+        }) => {
+          order.products.forEach((item) => {
+            let productItem: ProductAttributes = this.product
+              .findByPk(item.product_id)
+              .then((product: ProductAttributes) => {
+                newOrder.addProduct(product, {
+                  through: { quantity: item.quantity },
+                });
+              })
+              .then(() => {
+                res.status(201).send(newOrder);
+              });
+          });
+        }
+      );
   };
 
   /* private updateOrder = (req: express.Request, res: express.Response) => {
