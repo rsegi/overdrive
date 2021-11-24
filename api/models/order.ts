@@ -3,12 +3,12 @@ import { Model, UUIDV4 } from "sequelize";
 
 interface OrderAttributes {
   id: string;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   address: string;
   email: string;
   city: string;
-  postalCode: string;
+  postalcode: string;
   country: string;
   user_id: string;
 }
@@ -21,18 +21,19 @@ module.exports = (sequelize: any, DataTypes: any) => {
      * The `models/index` file will call this method automatically.
      */
     id!: string;
-    firstName!: string;
-    lastName!: string;
+    firstname!: string;
+    lastname!: string;
     address!: string;
     email!: string;
     city!: string;
-    postalCode!: string;
+    postalcode!: string;
     country!: string;
     user_id!: string;
     static associate(models: any) {
       // define association here
-      Order.belongsTo(models.User);
+      Order.belongsTo(models.User, { foreignKey: "user_id" });
       Order.belongsToMany(models.Product, {
+        as: "Product",
         through: "orderproducts",
       });
     }
@@ -45,11 +46,11 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: false,
         primaryKey: true,
       },
-      firstName: {
+      firstname: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      lastName: {
+      lastname: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -65,7 +66,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      postalCode: {
+      postalcode: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -83,7 +84,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       modelName: "Order",
       tableName: "orders",
       timestamps: false,
-      underscored: true
+      underscored: true,
     }
   );
   return Order;

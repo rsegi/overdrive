@@ -1,12 +1,13 @@
-import { ICartItem } from "./cartItem";
+import { IOrderProduct } from "./orderProduct";
 
 export interface IOrder {
-  items: ICartItem[];
-  firstName: string;
-  lastName: string;
+  products: IOrderProduct[];
+  firstname: string;
+  lastname: string;
   email: string;
   address: string;
   city: string;
-  postalCode: string;
+  postalcode: string;
   country: string;
+  user_id: string;
 }

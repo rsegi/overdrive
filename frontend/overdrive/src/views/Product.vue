@@ -34,7 +34,7 @@
 import productService from "@/services/productService";
 import { IProduct } from "@/models/product";
 import { defineComponent } from "vue";
-import { toast } from 'bulma-toast';
+import { toast } from "bulma-toast";
 
 interface Data {
   product: IProduct;
@@ -45,7 +45,7 @@ export default defineComponent({
   name: "Product",
   data(): Data {
     return {
-      product: {id: '', name: '', image: '', price: 0, description:''},
+      product: { id: "", name: "", image: "", price: 0, description: "" },
       quantity: 1,
     };
   },
@@ -69,7 +69,17 @@ export default defineComponent({
       this.$store.commit("setIsLoading", false);
     },
 
-    addToCart() {      
+    addToCart() {
+      if (!this.$store.state.isAuthenticated) {
+        toast({
+          message: "You need to be logged in to add items to your cart.",
+          type: "is-danger",
+          duration: 3000,
+          position: "bottom-right",
+        });
+        return;
+      }
+
       if (isNaN(this.quantity) || this.quantity < 1) {
         this.quantity = 1;
       }
@@ -81,12 +91,12 @@ export default defineComponent({
       this.$store.commit("addToCart", item);
 
       toast({
-          message: 'The product was added to the cart',
-          type: 'is-success',
-          dismissible: true,
-          pauseOnHover: true,
-          duration: 2000,
-          position: 'bottom-right',
+        message: "The product was added to the cart",
+        type: "is-success",
+        dismissible: true,
+        pauseOnHover: true,
+        duration: 2000,
+        position: "bottom-right",
       });
     },
   },

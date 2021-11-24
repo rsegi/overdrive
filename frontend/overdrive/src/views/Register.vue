@@ -8,14 +8,14 @@
           <div class="field">
             <label>First name</label>
             <div class="control">
-              <input type="text" class="input" v-model="firstName" />
+              <input type="text" class="input" v-model="firstname" />
             </div>
           </div>
 
           <div class="field">
             <label>Last name</label>
             <div class="control">
-              <input type="text" class="input" v-model="lastName" />
+              <input type="text" class="input" v-model="lastname" />
             </div>
           </div>
 
@@ -63,10 +63,11 @@
 import authenticationService from "@/services/authenticationService";
 import { defineComponent } from "vue";
 import { toast } from "bulma-toast";
+import { IRegisterData } from "@/models/registerData";
 
 interface Data {
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   email: string;
   password: string;
   password2: string;
@@ -77,8 +78,8 @@ export default defineComponent({
   name: "Register",
   data(): Data {
     return {
-      firstName: "",
-      lastName: "",
+      firstname: "",
+      lastname: "",
       email: "",
       password: "",
       password2: "",
@@ -91,10 +92,10 @@ export default defineComponent({
   methods: {
     submitForm() {
       this.errors = [];
-      if (this.firstName === "") {
+      if (this.firstname === "") {
         this.errors.push("The first name is missing");
       }
-      if (this.lastName === "") {
+      if (this.lastname === "") {
         this.errors.push("The last name is missing");
       }
       if (this.email === "") {
@@ -108,9 +109,9 @@ export default defineComponent({
       }
 
       if (!this.errors.length) {
-        const formData = {
-          firstName: this.firstName,
-          lastName: this.lastName,
+        const formData: IRegisterData = {
+          firstname: this.firstname,
+          lastname: this.lastname,
           email: this.email,
           password: this.password,
         };

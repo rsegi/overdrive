@@ -1,17 +1,17 @@
 export interface UserDto {
   user_id: string;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   email: string;
 }
 
 export const getUserDto = (u: any): UserDto => {
-  const { id, firstName, lastName, email } = u.dataValues;
+  const { id, firstname, lastname, email } = u.dataValues;
 
   return {
     user_id: id,
-    firstName,
-    lastName,
+    firstname: firstname,
+    lastname: lastname,
     email,
   };
 };

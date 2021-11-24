@@ -3,8 +3,8 @@ import { Model, UUIDV4 } from "sequelize";
 
 export interface UserAttributes {
   id: string;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   email: string;
   password: string;
 }
@@ -17,15 +17,13 @@ module.exports = (sequelize: any, DataTypes: any) => {
      * The `models/index` file will call this method automatically.
      */
     id!: string;
-    firstName!: string;
-    lastName!: string;
+    firstname!: string;
+    lastname!: string;
     email!: string;
     password!: string;
     static associate(models: any) {
       // define association here
-      User.hasMany(models.Order, {
-        foreignKey: "id_user",
-      });
+      User.hasMany(models.Order, { as: "Order", foreignKey: "user_id" });
     }
   }
   User.init(
@@ -36,11 +34,11 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: false,
         primaryKey: true,
       },
-      firstName: {
+      firstname: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      lastName: {
+      lastname: {
         type: DataTypes.STRING,
         allowNull: false,
       },
