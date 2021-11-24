@@ -32,7 +32,7 @@ CREATE TABLE Orders (
     "address" VARCHAR(255) NOT NULL,
     "email" VARCHAR(255) NOT NULL,
     "city" VARCHAR(255) NOT NULL,
-    "postalCode" VARCHAR(255) NOT NULL,
+    "postalcode" VARCHAR(255) NOT NULL,
     "country" VARCHAR(255) NOT NULL,
     "user_id" UUID NOT NULL,
     CONSTRAINT PK_ORDER PRIMARY KEY(id),
