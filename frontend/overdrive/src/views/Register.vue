@@ -1,5 +1,5 @@
 <template>
-  <div class="section page-register">
+  <div class="page-register section">
     <div class="columns">
       <div class="column is-4 is-offset-4">
         <h1 class="title">Sign up</h1>

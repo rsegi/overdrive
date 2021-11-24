@@ -1,5 +1,5 @@
 <template>
-  <div class="section page-log-in">
+  <div class="page-log-in section">
     <div class="columns">
       <div class="column is-4 is-offset-4">
         <h1 class="title">Log in</h1>
