@@ -1,5 +1,5 @@
 <template>
-  <div class="page-register">
+  <div class="section page-register">
     <div class="columns">
       <div class="column is-4 is-offset-4">
         <h1 class="title">Sign up</h1>
@@ -60,10 +60,10 @@
 </template>
 
 <script lang="ts">
-import authenticationService from "@/services/authenticationService";
-import { defineComponent } from "vue";
-import { toast } from "bulma-toast";
-import { IRegisterData } from "@/models/registerData";
+import authenticationService from '@/services/authenticationService';
+import { defineComponent } from 'vue';
+import { toast } from 'bulma-toast';
+import { IRegisterData } from '@/models/registerData';
 
 interface Data {
   firstname: string;
@@ -75,34 +75,34 @@ interface Data {
 }
 
 export default defineComponent({
-  name: "Register",
+  name: 'Register',
   data(): Data {
     return {
-      firstname: "",
-      lastname: "",
-      email: "",
-      password: "",
-      password2: "",
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: '',
+      password2: '',
       errors: [],
     };
   },
   mounted() {
-    document.title = "Sign Up | Overdrive";
+    document.title = 'Sign Up | Overdrive';
   },
   methods: {
     submitForm() {
       this.errors = [];
-      if (this.firstname === "") {
-        this.errors.push("The first name is missing");
+      if (this.firstname === '') {
+        this.errors.push('The first name is missing');
       }
-      if (this.lastname === "") {
-        this.errors.push("The last name is missing");
+      if (this.lastname === '') {
+        this.errors.push('The last name is missing');
       }
-      if (this.email === "") {
-        this.errors.push("The email is missing");
+      if (this.email === '') {
+        this.errors.push('The email is missing');
       }
-      if (this.password === "") {
-        this.errors.push("The password is too short");
+      if (this.password === '') {
+        this.errors.push('The password is too short');
       }
       if (this.password !== this.password2) {
         this.errors.push("The passwords doesn't match");
@@ -120,15 +120,15 @@ export default defineComponent({
           .register(formData)
           .then(() => {
             toast({
-              message: "Account created, please log in!",
-              type: "is-success",
+              message: 'Account created, please log in!',
+              type: 'is-success',
               dismissible: true,
               pauseOnHover: true,
               duration: 2000,
-              position: "bottom-right",
+              position: 'bottom-right',
             });
 
-            this.$router.push("/log-in");
+            this.$router.push('/log-in');
           })
           .catch((error) => {
             if (error.response) {
@@ -139,7 +139,7 @@ export default defineComponent({
               }
               console.log(JSON.stringify(error.response.data));
             } else if (error.message) {
-              this.errors.push("Something went wrong. Please try again");
+              this.errors.push('Something went wrong. Please try again');
 
               console.log(JSON.stringify(error));
             }

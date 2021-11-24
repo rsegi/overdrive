@@ -1,5 +1,5 @@
 <template>
-  <div class="page-log-in">
+  <div class="section page-log-in">
     <div class="columns">
       <div class="column is-4 is-offset-4">
         <h1 class="title">Log in</h1>
@@ -39,8 +39,8 @@
 </template>
 
 <script lang="ts">
-import authenticationService from "@/services/authenticationService";
-import { defineComponent } from "vue";
+import authenticationService from '@/services/authenticationService';
+import { defineComponent } from 'vue';
 
 interface Data {
   email: string;
@@ -49,16 +49,16 @@ interface Data {
 }
 
 export default defineComponent({
-  name: "LogIn",
+  name: 'LogIn',
   data(): Data {
     return {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       errors: [],
     };
   },
   mounted() {
-    document.title = "Log In | Overdrive";
+    document.title = 'Log In | Overdrive';
   },
   methods: {
     submitForm() {
@@ -70,8 +70,8 @@ export default defineComponent({
       authenticationService
         .logIn(formData)
         .then((response) => {
-          this.$store.commit("setAuthentication", response.data.user_id);
-          this.$router.push("/");
+          this.$store.commit('setAuthentication', response.data.user_id);
+          this.$router.push('/');
         })
         .catch((error) => {
           if (error.response) {
@@ -79,7 +79,7 @@ export default defineComponent({
               this.errors.push(`${property}: ${error.response.data[property]}`);
             }
           } else {
-            this.errors.push("Something went wrong. Please try again");
+            this.errors.push('Something went wrong. Please try again');
 
             console.log(JSON.stringify(error));
           }
