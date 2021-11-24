@@ -18,8 +18,8 @@ CREATE TABLE Categories (
 
 CREATE TABLE Users (
     "id" UUID NOT NULL,
-    "firstName" VARCHAR(255) NOT NULL,
-    "lastName" VARCHAR(255) NOT NULL,
+    "firstname" VARCHAR(255) NOT NULL,
+    "lastname" VARCHAR(255) NOT NULL,
     "email" VARCHAR(255) NOT NULL UNIQUE,
     "password" VARCHAR(255) NOT NULL,
     CONSTRAINT PK_USER PRIMARY KEY(id)
@@ -27,12 +27,12 @@ CREATE TABLE Users (
 
 CREATE TABLE Orders (
     "id" UUID NOT NULL,
-    "firstName" VARCHAR(255) NOT NULL,
-    "lastName" VARCHAR(255) NOT NULL,
+    "firstname" VARCHAR(255) NOT NULL,
+    "lastname" VARCHAR(255) NOT NULL,
     "address" VARCHAR(255) NOT NULL,
     "email" VARCHAR(255) NOT NULL,
     "city" VARCHAR(255) NOT NULL,
-    "postalCode" VARCHAR(255) NOT NULL,
+    "postalcode" VARCHAR(255) NOT NULL,
     "country" VARCHAR(255) NOT NULL,
     "user_id" UUID NOT NULL,
     CONSTRAINT PK_ORDER PRIMARY KEY(id),
