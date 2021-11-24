@@ -1,5 +1,5 @@
 <template>
-  <div class="page-checkout">
+  <div class="page-checkout section">
     <div class="columns is-multiline">
       <div class="column is-12">
         <h1 class="title">Checkout</h1>
@@ -114,10 +114,10 @@
 </template>
 
 <script lang="ts">
-import { ICartItem } from "@/models/cartItem";
-import { IOrder } from "@/models/order";
-import orderService from "@/services/orderService";
-import { defineComponent } from "vue";
+import { ICartItem } from '@/models/cartItem';
+import { IOrder } from '@/models/order';
+import orderService from '@/services/orderService';
+import { defineComponent } from 'vue';
 
 interface Data {
   cart: {
@@ -134,24 +134,24 @@ interface Data {
 }
 
 export default defineComponent({
-  name: "Checkout",
+  name: 'Checkout',
   data(): Data {
     return {
       cart: {
         items: [],
       },
-      firstname: "",
-      lastname: "",
-      email: "",
-      address: "",
-      city: "",
-      postalcode: "",
-      country: "",
+      firstname: '',
+      lastname: '',
+      email: '',
+      address: '',
+      city: '',
+      postalcode: '',
+      country: '',
       errors: [],
     };
   },
   mounted() {
-    document.title = "Checkout | Overdrive";
+    document.title = 'Checkout | Overdrive';
 
     this.cart = this.$store.state.cart;
   },
@@ -163,26 +163,26 @@ export default defineComponent({
     submitForm() {
       this.errors = [];
 
-      if (this.firstname === "") {
-        this.errors.push("The first name field is missing!");
+      if (this.firstname === '') {
+        this.errors.push('The first name field is missing!');
       }
-      if (this.lastname === "") {
-        this.errors.push("The last name field is missing!");
+      if (this.lastname === '') {
+        this.errors.push('The last name field is missing!');
       }
-      if (this.email === "") {
-        this.errors.push("The email field is missing!");
+      if (this.email === '') {
+        this.errors.push('The email field is missing!');
       }
-      if (this.address === "") {
-        this.errors.push("The address field is missing!");
+      if (this.address === '') {
+        this.errors.push('The address field is missing!');
       }
-      if (this.city === "") {
-        this.errors.push("The city field is missing!");
+      if (this.city === '') {
+        this.errors.push('The city field is missing!');
       }
-      if (this.postalcode === "") {
-        this.errors.push("The postal code field is missing!");
+      if (this.postalcode === '') {
+        this.errors.push('The postal code field is missing!');
       }
-      if (this.country === "") {
-        this.errors.push("The country field is missing!");
+      if (this.country === '') {
+        this.errors.push('The country field is missing!');
       }
 
       const data: IOrder = {
@@ -204,11 +204,11 @@ export default defineComponent({
         orderService
           .placeOrder(data)
           .then(() => {
-            this.$store.commit("clearCart");
-            this.$router.push("/cart/checkout/success");
+            this.$store.commit('clearCart');
+            this.$router.push('/cart/checkout/success');
           })
           .catch((error: Error) => {
-            this.errors.push("Something went wrong. Please try again");
+            this.errors.push('Something went wrong. Please try again');
             console.log(error);
           });
       }

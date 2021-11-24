@@ -1,5 +1,5 @@
 <template>
-  <div class="page-my-account">
+  <div class="page-my-account section">
     <div class="columns is-multiline">
       <div class="column is-12">
         <h1 class="title">My account</h1>
