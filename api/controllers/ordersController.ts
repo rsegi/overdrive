@@ -65,47 +65,48 @@ class OrdersController implements Controller {
     const order: OrderWithProducts = req.body;
     console.log(order);
 
-    const newOrder = this.order
-      .create({
-        firstname: order.firstname,
-        lastname: order.lastname,
-        address: order.address,
-        email: order.email,
-        city: order.city,
-        postalcode: order.postalcode,
-        country: order.country,
-        user_id: order.user_id,
-      })
-      .then(
-        (newOrder: {
-          addProduct: (
-            arg0: ProductAttributes,
-            arg1: { through: { quantity: number } }
-          ) => void;
-        }) => {
-          order.products.forEach((item) => {
-            let productItem: ProductAttributes = this.product
-              .findByPk(item.product_id)
-              .then((product: ProductAttributes) => {
-                newOrder.addProduct(product, {
-                  through: { quantity: item.quantity },
-                });
-              })
-              .then(() => {
-                res.status(201).send(newOrder);
-              });
-          });
-        }
-      );
-  };
+    let productos: ProductAttributes[] = [];
+    order.products.forEach(async (item) => {
+      let productItem = await this.product.findByPk(item.product_id);
+      productos.push({
+        id: productItem.dataValues.id_product,
+        name: productItem.dataValues.name,
+        price: productItem.dataValues.price,
+        image: productItem.dataValues.image,
+        description: productItem.dataValues.description,
+        category_id: productItem.dataValues.category_id,
+      });
+    });
 
-  /* private updateOrder = (req: express.Request, res: express.Response) => {
+    const newOrder = this.order
+      .create(
+        {
+          firstname: order.firstname,
+          lastname: order.lastname,
+          address: order.address,
+          email: order.email,
+          city: order.city,
+          postalcode: order.postalcode,
+          country: order.country,
+          user_id: order.user_id,
+          products: productos,
+        },
+        {
+          include: ["Product"],
+        }
+      )
+      .then((newOrder2: any) => {
+        res.status(201).send(newOrder2);
+      });
+  };
+}
+
+/* private updateOrder = (req: express.Request, res: express.Response) => {
     res.send("Update order");
   };
 
   private deleteOrder = (req: express.Request, res: express.Response) => {
     res.send("Delete order");
   }; */
-}
 
 export default OrdersController;

@@ -29,9 +29,13 @@ import authenticationService from "@/services/authenticationService";
 import { defineComponent } from "vue";
 import { IOrder } from "@/models/order";
 import OrderSummary from "@/components/OrderSummary.vue";
-import orderService from "@/services/orderService";
+import userService from "@/services/userService";
 
 interface Data {
+  id: string;
+  firstname: string;
+  lastname: string;
+  email: string;
   orders: IOrder[];
 }
 
@@ -42,11 +46,16 @@ export default defineComponent({
   },
   data(): Data {
     return {
+      id: "",
+      firstname: "",
+      lastname: "",
+      email: "",
       orders: [],
     };
   },
   mounted() {
     document.title = "My account | Overdrive";
+    this.getOrders();
   },
   methods: {
     logout() {
@@ -56,11 +65,15 @@ export default defineComponent({
       });
     },
 
-    async getOrders() {
-      await orderService
-        .getOrders()
+    getOrders() {
+      userService
+        .getOrders(this.$store.state.user_id)
         .then((response) => {
-          this.orders = response.data;
+          this.orders = response.data.Order;
+          this.id = response.data.id;
+          this.firstname = response.data.firstname;
+          this.lastname = response.data.lastname;
+          this.email = response.data.email;
         })
         .catch((error: Error) => {
           console.log(error);

@@ -13,12 +13,8 @@ class UsersController implements Controller {
   }
 
   private initializeRoutes() {
-    this.router.get(
-      `this.path/:userId/orders`,
-      authMiddleware,
-      this.getAllOrdersByUserId
-    );
-    this.router.delete(`${this.path}/:userId`, authMiddleware, this.removeOne);
+    this.router.get(`${this.path}/:userId/orders`, this.getAllOrdersByUserId);
+    this.router.delete(`${this.path}/:userId`, this.removeOne);
   }
 
   private getAllOrdersByUserId = async (
@@ -31,28 +27,18 @@ class UsersController implements Controller {
       include: [
         {
           model: db.Order,
-          as: "orders",
+          as: "Order",
           include: [
             {
               model: db.Product,
-              as: "products",
-              include: [
-                {
-                  model: db.OrderProduct,
-                  as: "orderProducts",
-                  include: [
-                    {
-                      model: db.Product,
-                      as: "product",
-                    },
-                  ],
-                },
-              ],
+              as: "Product",
             },
           ],
         },
       ],
     });
+    console.log(orders);
+
     res.send(orders);
   };
 
@@ -64,7 +50,6 @@ class UsersController implements Controller {
       });
       res.status(200);
     } catch (error) {
-      console.log("Error: ", error);
       res.sendStatus(400);
     }
   };

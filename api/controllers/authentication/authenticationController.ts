@@ -29,8 +29,6 @@ class AuthenticationController implements Controller {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    console.log(req.body);
-
     const userData: UserAttributes = req.body;
     let existingUser: UserAttributes = await this.user.findOne({
       where: { email: userData.email },

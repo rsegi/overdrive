@@ -11,3 +11,12 @@ export interface IOrder {
   country: string;
   user_id: string;
 }
+
+export interface IOrderDetail {
+  id: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  Order: IOrder[];
+  Product: IOrderProduct[];
+}
